@@ -1,9 +1,6 @@
-import {
-  extendZodWithOpenApi,
-  OpenAPIRegistry,
-  OpenApiGeneratorV3,
-} from "@asteasolutions/zod-to-openapi";
+import { extendZodWithOpenApi, OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
+import { REGEX } from "../constants/regex";
 
 extendZodWithOpenApi(z);
 
@@ -11,7 +8,7 @@ export const UserSchema = z
   .object({
     _id: z
       .string()
-      .regex(/^[a-f0-9]{24}$/i)
+      .regex(REGEX.mongoId)
       .openapi({ description: "MongoDB ObjectId" }),
     email: z.email().openapi({ example: "[email protected]" }),
     name: z.string().min(1).openapi({ example: "Ada Lovelace" }),
@@ -30,7 +27,7 @@ export const CreateUserBodySchema = z
   .openapi("CreateUserBody");
 
 export const GetUserParamsSchema = z.object({
-  id: z.string().regex(/^[a-f0-9]{24}$/i),
+  id: z.string().regex(REGEX.mongoId),
 });
 export const ListUsersQuerySchema = z.object({
   limit: z.coerce.number().int().positive().max(100).optional().default(20),

@@ -6,7 +6,7 @@ import {
   hashPassword,
   verifyPassword,
 } from "./auth.service";
-import { HttpStatus } from "../utils/http-status";
+import { HttpStatus } from "../constants/http-status";
 
 const repo = createUserRepository();
 

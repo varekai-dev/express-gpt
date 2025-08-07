@@ -1,7 +1,7 @@
 import type { RequestHandler } from "express";
 import { createUserRepository } from "./user.repository";
 import { createUserService } from "./user.service";
-import { HttpStatus } from "../utils/http-status";
+import { HttpStatus } from "../constants/http-status";
 
 const repo = createUserRepository();
 const svc = createUserService({ repo });

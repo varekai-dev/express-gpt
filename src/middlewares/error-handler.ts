@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler, RequestHandler } from "express";
 import { ZodError } from "zod";
-import { HttpStatus } from "../utils/http-status";
+import { HttpStatus } from "../constants/http-status";
 
 type AppErrorOptions = {
   status?: number;
