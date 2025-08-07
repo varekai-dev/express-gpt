@@ -6,6 +6,7 @@ import {
   hashPassword,
   verifyPassword,
 } from "./auth.service";
+import { HttpStatus } from "../utils/http-status";
 
 const repo = createUserRepository();
 
@@ -31,7 +32,7 @@ export const registerController: RequestHandler = async (req, res, next) => {
       email: user.email,
       role: user.role as any,
     });
-    res.status(201).json({ token, user });
+    res.status(HttpStatus.CREATED).json({ token, user });
   } catch (err) {
     next(err);
   }
@@ -66,7 +67,7 @@ export const loginController: RequestHandler = async (req, res, next) => {
       email: user.email,
       role: (user as any).role ?? "user",
     });
-    res.json({ token, user });
+    res.status(HttpStatus.OK).json({ token, user });
   } catch (err) {
     next(err);
   }

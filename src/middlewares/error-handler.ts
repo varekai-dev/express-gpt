@@ -1,5 +1,6 @@
 import type { ErrorRequestHandler, RequestHandler } from "express";
 import { ZodError } from "zod";
+import { HttpStatus } from "../utils/http-status";
 
 type AppErrorOptions = {
   status?: number;
@@ -31,7 +32,7 @@ export function errorHandler(): ErrorRequestHandler {
     }
 
     if (err instanceof ZodError) {
-      res.status(400).json({
+      res.status(HttpStatus.BAD_REQUEST).json({
         error: "VALIDATION_ERROR",
         message: "Request validation failed",
         details: err.issues,
@@ -54,7 +55,7 @@ export function errorHandler(): ErrorRequestHandler {
     // Mongoose / MongoDB errors
     if (isMongoDuplicateKeyError(err)) {
       const fields = extractDuplicateFields(err);
-      res.status(409).json({
+      res.status(HttpStatus.CONFLICT).json({
         error: "DUPLICATE_KEY",
         message: `Duplicate value for ${fields.join(", ")}`,
       });
@@ -63,14 +64,14 @@ export function errorHandler(): ErrorRequestHandler {
 
     if (isMongooseCastError(err)) {
       res
-        .status(400)
+        .status(HttpStatus.BAD_REQUEST)
         .json({ error: "INVALID_ID", message: `Invalid id format` });
       return;
     }
 
     if (isMongooseValidationError(err)) {
       const fields = Object.keys(err.errors ?? {});
-      res.status(400).json({
+      res.status(HttpStatus.BAD_REQUEST).json({
         error: "DB_VALIDATION_ERROR",
         message: fields.length
           ? `Validation failed for: ${fields.join(", ")}`
@@ -81,27 +82,29 @@ export function errorHandler(): ErrorRequestHandler {
 
     if (isMongoServerSelectionError(err)) {
       res
-        .status(503)
+        .status(HttpStatus.SERVICE_UNAVAILABLE)
         .json({ error: "DB_UNAVAILABLE", message: "Database unavailable" });
       return;
     }
 
     res
-      .status(500)
+      .status(HttpStatus.INTERNAL_ERROR)
       .json({ error: "INTERNAL_ERROR", message: "Unexpected error" });
   };
 }
 
 export function notFound(): RequestHandler {
   return (_req, res) => {
-    res.status(404).json({ error: "NOT_FOUND", message: "Route not found" });
+    res
+      .status(HttpStatus.NOT_FOUND)
+      .json({ error: "NOT_FOUND", message: "Route not found" });
   };
 }
 
 export function methodNotAllowed(): RequestHandler {
   return (_req, res) => {
     res
-      .status(405)
+      .status(HttpStatus.METHOD_NOT_ALLOWED)
       .json({ error: "METHOD_NOT_ALLOWED", message: "Method not allowed" });
   };
 }
