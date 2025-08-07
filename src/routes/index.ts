@@ -1,9 +1,11 @@
 import type { Express } from "express";
 import swaggerUi from "swagger-ui-express";
-import { buildOpenApi } from "../swagger/openapi";
-import { userRouter } from "./users";
-import { authRouter } from "./auth";
+
 import { notFound } from "../middlewares/error-handler";
+import { buildOpenApi } from "../swagger/openapi";
+
+import { authRouter } from "./auth";
+import { userRouter } from "./users";
 
 export function registerRoutes({ app }: { app: Express }) {
   app.use("/api/auth", authRouter());

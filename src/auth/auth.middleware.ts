@@ -1,5 +1,7 @@
 import type { RequestHandler } from "express";
+
 import { AppError } from "../middlewares/error-handler";
+
 import { verifyAccessToken } from "./auth.service";
 
 export function authenticate(): RequestHandler {

@@ -1,9 +1,10 @@
 import {
-  OpenAPIRegistry,
   OpenApiGeneratorV3,
+  OpenAPIRegistry,
 } from "@asteasolutions/zod-to-openapi";
-import { userOpenApi } from "./user.openapi";
+
 import { authOpenApi } from "./auth.openapi";
+import { userOpenApi } from "./user.openapi";
 
 export function buildOpenApi() {
   const registry = new OpenAPIRegistry();

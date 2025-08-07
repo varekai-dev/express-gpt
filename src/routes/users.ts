@@ -1,4 +1,6 @@
 import { Router } from "express";
+
+import { authenticate, authorize } from "../auth/auth.middleware";
 import { validate } from "../middlewares/validate";
 import {
   createUserController,
@@ -10,7 +12,6 @@ import {
   GetUserParamsSchema,
   ListUsersQuerySchema,
 } from "../users/user.schemas";
-import { authenticate, authorize } from "../auth/auth.middleware";
 
 export function userRouter() {
   const r = Router();

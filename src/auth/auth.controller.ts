@@ -1,12 +1,14 @@
 import type { RequestHandler } from "express";
-import { createUserRepository } from "../users/user.repository";
+
+import { HttpStatus } from "../constants/http-status";
 import { AppError } from "../middlewares/error-handler";
+import { createUserRepository } from "../users/user.repository";
+
 import {
   createAccessToken,
   hashPassword,
   verifyPassword,
 } from "./auth.service";
-import { HttpStatus } from "../constants/http-status";
 
 const repo = createUserRepository();
 

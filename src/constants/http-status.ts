@@ -11,8 +11,6 @@ export const HttpStatus = {
   PAYLOAD_TOO_LARGE: 413,
   INTERNAL_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
-} as const
+} as const;
 
-export type HttpStatusCode = (typeof HttpStatus)[keyof typeof HttpStatus]
-
-
+export type HttpStatusCode = (typeof HttpStatus)[keyof typeof HttpStatus];

@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { type ZodObject, ZodError } from "zod";
+import { ZodError,type ZodObject } from "zod";
 
 export function validate({
   body,

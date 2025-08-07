@@ -1,6 +1,8 @@
-import mongoose, { Schema, model, type InferSchemaType, Types } from "mongoose";
-import type { User } from "./user.schemas";
+import mongoose, { type InferSchemaType, model, Schema, Types } from "mongoose";
+
 import { initMongo } from "../services/mongo";
+
+import type { User } from "./user.schemas";
 
 const userSchema = new Schema(
   {

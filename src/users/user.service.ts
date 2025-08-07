@@ -1,4 +1,5 @@
 import { AppError } from "../middlewares/error-handler";
+
 import type { UserRepository } from "./user.repository";
 
 export function createUserService({ repo }: { repo: UserRepository }) {

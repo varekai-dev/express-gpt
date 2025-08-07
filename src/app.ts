@@ -1,9 +1,10 @@
 import express from "express";
 import { json, urlencoded } from "express";
-import { registerRoutes } from "./routes";
+
 import { errorHandler } from "./middlewares/error-handler";
 import { requestLogger } from "./middlewares/request-logger";
 import { initMongo } from "./services/mongo";
+import { registerRoutes } from "./routes";
 
 export function createApp() {
   const app = express();

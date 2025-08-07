@@ -3,10 +3,11 @@ import {
   OpenAPIRegistry,
 } from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
+
 import {
+  AuthResponseSchema,
   LoginBodySchema,
   RegisterBodySchema,
-  AuthResponseSchema,
 } from "../auth/auth.schemas";
 
 extendZodWithOpenApi(z);

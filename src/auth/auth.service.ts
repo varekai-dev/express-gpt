@@ -1,8 +1,10 @@
 // bcryptjs ships types via its index.d.ts, but TS may not resolve defaults correctly in some configs
 // Use require type to avoid missing types error in some environments
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+ 
 const bcrypt = require("bcryptjs") as typeof import("bcryptjs");
+
 import jwt, { Secret, SignOptions } from "jsonwebtoken";
+
 import { getEnv } from "../utils/env";
 
 export type Role = "user" | "admin";
