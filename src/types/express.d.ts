@@ -7,5 +7,10 @@ declare module "express-serve-static-core" {
       query?: Record<string, unknown>;
       params?: Record<string, unknown>;
     };
+    user?: {
+      id: string;
+      email: string;
+      role: "user" | "admin";
+    };
   }
 }

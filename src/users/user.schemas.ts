@@ -16,6 +16,7 @@ export const UserSchema = z
     email: z.email().openapi({ example: "[email protected]" }),
     name: z.string().min(1).openapi({ example: "Ada Lovelace" }),
     createdAt: z.iso.datetime().openapi({ example: "2024-01-01T00:00:00Z" }),
+    role: z.enum(["user", "admin"]).openapi({ example: "user" }),
   })
   .openapi("User");
 

@@ -3,10 +3,12 @@ import {
   OpenApiGeneratorV3,
 } from "@asteasolutions/zod-to-openapi";
 import { userOpenApi } from "./user.openapi";
+import { authOpenApi } from "./auth.openapi";
 
 export function buildOpenApi() {
   const registry = new OpenAPIRegistry();
   userOpenApi({ registry });
+  authOpenApi({ registry });
 
   const generator = new OpenApiGeneratorV3(registry.definitions);
   return generator.generateDocument({

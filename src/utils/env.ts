@@ -7,6 +7,12 @@ const EnvSchema = z.object({
   PORT: z.coerce.number().int().positive().catch(3000),
   MONGO_URI: z.string().min(1).catch("mongodb://127.0.0.1:27017"),
   MONGO_DB: z.string().min(1).catch("gpt5"),
+  JWT_SECRET: z.string().min(1).catch("change-me-in-prod"),
+  JWT_EXPIRES_IN: z
+    .string()
+    .min(1)
+    .or(z.coerce.number().int().positive())
+    .catch("1h"),
 });
 
 export type Env = {
@@ -14,6 +20,8 @@ export type Env = {
   port: number;
   mongoUri: string;
   mongoDb: string;
+  jwtSecret: string;
+  jwtExpiresIn: string | number;
 };
 
 export function getEnv(): Env {
@@ -28,5 +36,7 @@ export function getEnv(): Env {
     port: v.PORT,
     mongoUri: v.MONGO_URI,
     mongoDb: v.MONGO_DB,
+    jwtSecret: v.JWT_SECRET,
+    jwtExpiresIn: v.JWT_EXPIRES_IN,
   };
 }

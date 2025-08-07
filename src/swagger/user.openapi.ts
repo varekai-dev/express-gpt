@@ -13,10 +13,17 @@ import {
 extendZodWithOpenApi(z);
 
 export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
+  registry.registerComponent("securitySchemes", "bearerAuth", {
+    type: "http",
+    scheme: "bearer",
+    bearerFormat: "JWT",
+  });
+
   registry.registerPath({
     method: "get",
     path: "/api/users",
     request: { query: ListUsersQuerySchema },
+    security: [{ bearerAuth: [] }],
     responses: {
       200: {
         description: "List users",
@@ -26,6 +33,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
           },
         },
       },
+      401: { description: "Unauthorized" },
     },
   });
 
@@ -33,6 +41,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
     method: "get",
     path: "/api/users/{id}",
     request: { params: GetUserParamsSchema },
+    security: [{ bearerAuth: [] }],
     responses: {
       200: {
         description: "Get user by id",
@@ -40,6 +49,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
           "application/json": { schema: z.object({ user: UserSchema }) },
         },
       },
+      401: { description: "Unauthorized" },
       404: { description: "Not found" },
     },
   });
@@ -52,6 +62,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
         content: { "application/json": { schema: CreateUserBodySchema } },
       },
     },
+    security: [{ bearerAuth: [] }],
     responses: {
       201: {
         description: "Created",
@@ -59,6 +70,8 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
           "application/json": { schema: z.object({ user: UserSchema }) },
         },
       },
+      401: { description: "Unauthorized" },
+      403: { description: "Forbidden" },
       409: { description: "Conflict" },
     },
   });
