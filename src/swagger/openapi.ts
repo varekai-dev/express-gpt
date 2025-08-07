@@ -18,5 +18,9 @@ export function buildOpenApi() {
       version: "1.0.0",
     },
     servers: [{ url: "http://localhost:3000" }],
+    tags: [
+      { name: "Auth", description: "Authentication endpoints" },
+      { name: "Users", description: "User management endpoints" },
+    ],
   });
 }

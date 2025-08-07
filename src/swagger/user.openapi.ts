@@ -22,6 +22,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
   registry.registerPath({
     method: "get",
     path: "/api/users",
+    tags: ["Users"],
     request: { query: ListUsersQuerySchema },
     security: [{ bearerAuth: [] }],
     responses: {
@@ -40,6 +41,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
   registry.registerPath({
     method: "get",
     path: "/api/users/{id}",
+    tags: ["Users"],
     request: { params: GetUserParamsSchema },
     security: [{ bearerAuth: [] }],
     responses: {
@@ -57,6 +59,7 @@ export function userOpenApi({ registry }: { registry: OpenAPIRegistry }) {
   registry.registerPath({
     method: "post",
     path: "/api/users",
+    tags: ["Users"],
     request: {
       body: {
         content: { "application/json": { schema: CreateUserBodySchema } },

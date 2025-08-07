@@ -21,6 +21,7 @@ export function authOpenApi({ registry }: { registry: OpenAPIRegistry }) {
   registry.registerPath({
     method: "post",
     path: "/api/auth/register",
+    tags: ["Auth"],
     request: {
       body: { content: { "application/json": { schema: RegisterBodySchema } } },
     },
@@ -36,6 +37,7 @@ export function authOpenApi({ registry }: { registry: OpenAPIRegistry }) {
   registry.registerPath({
     method: "post",
     path: "/api/auth/login",
+    tags: ["Auth"],
     request: {
       body: { content: { "application/json": { schema: LoginBodySchema } } },
     },
